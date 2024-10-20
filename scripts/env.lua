@@ -16,8 +16,10 @@ _LIFECYCLE = _STAGE.control
 local Event = require 'utils.event'
 
 Event.on_init(function()
-  storage.planets = {}
   storage.map_planet_to_force = {}
   storage.map_force_to_planet = {}
   storage.team_names = {}
+  storage.first_landing = {}
+  storage.cooldown = {}
+  storage.DEBOUNCE_TICKS = 60 * 60 * 15
 end)

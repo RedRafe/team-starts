@@ -7,6 +7,8 @@ local TEST_1 = '[color=acid]Zyphorix[/color] [color=red]NibbleWorm[/color] [colo
 
 local main_button_name = Gui.uid_name()
 local main_frame_name = Gui.uid_name()
+local leave_force_button_name = Gui.uid_name()
+local join_force_button_name = Gui.uid_name()
 
 local Public = {}
 
@@ -16,6 +18,16 @@ local function get_player_counts(force)
     offline = #force.players - #force.connected_players,
     total = #force.players,
   }
+end
+
+local function debounce(player)
+  local tick = storage.cooldown[player.index]
+  if tick and tick > game.tick then
+    player.print({'info.cooldown', math.ceil((tick - game.tick) / 3600)})
+    return true
+  end
+  storage.cooldown[player.index] = game.tick + storage.DEBOUNCE_TICKS
+  return false
 end
 
 function Public.update_top_button(player)
@@ -78,7 +90,7 @@ local function display_team(parent, force)
     content.add { type = 'label', style = 'semibold_caption_label', caption = f('\tOnline: %d/%d', p_counts.online, p_counts.total)}
     content.add { type = 'label', style = 'semibold_caption_label', caption = f('\tOffline: %d/%d', p_counts.offline, p_counts.total)}
     if p_counts.total > 0 then
-      content.add { type = 'label', style = 'semibold_caption_label', caption = '\tList:'}
+      content.add { type = 'label', style = 'semibold_caption_label', caption = '\tPlayers list:'}
       local players_frame = content.add({
         type = 'frame',
         name = 'players',
@@ -91,18 +103,24 @@ local function display_team(parent, force)
       Gui.set_style(label, { single_line = false, font = 'default-small', horizontal_align = 'center' })
     end
 
+  Gui.add_pusher(content, 'vertical')
   local flow_3 = content.add { type = 'flow', direction = 'horizontal', style = 'player_input_horizontal_flow' }
   Gui.set_style(flow_3, { vertical_align = 'center', left_padding = 8, right_padding = 8 })
 
   local button
   local p_force = game.get_player(parent.player_index).force
-  local leave = flow_3.add { type = 'button', style = 'red_back_button', caption = 'Leave' }
+  local leave = flow_3.add { type = 'button', style = 'red_back_button', caption = 'Leave', name = leave_force_button_name }
   Gui.set_style(leave, { height = 24, natural_height = 24, minimal_width = 80 })
+  Gui.set_data(leave, { force_index = force.index })
   leave.visible = p_force == force
+  leave.tooltip = {'info.cooldown_tooltip', storage.DEBOUNCE_TICKS / 3600}
+
   Gui.add_pusher(flow_3)
-  local join = flow_3.add { type = 'button', style = 'confirm_button_without_tooltip', caption = 'Join'}
+  local join = flow_3.add { type = 'button', style = 'confirm_button_without_tooltip', caption = 'Join', name = join_force_button_name }
   Gui.set_style(join, { height = 24, natural_height = 24, minimal_width = 60 })
+  Gui.set_data(join, { force_index = force.index })
   join.visible = p_force ~= force
+  join.tooltip = {'info.cooldown_tooltip', storage.DEBOUNCE_TICKS / 3600}
 end
 
 function Public.get_main_frame(player)
@@ -132,7 +150,9 @@ function Public.get_main_frame(player)
 
   local info = sp.add { type = 'frame', direction = 'vertical' }.add { type = 'flow', style = 'player_input_horizontal_flow' }
   Gui.set_style(info, { horizontally_stretchable = true })
-  info.add { type = 'label', caption = 'This is the info caption' }
+  info.add { type = 'label', caption = {'gui.team_manager_caption'}, tooltip = {'gui.team_manager_tooltip'} }
+  Gui.add_pusher(info)
+  info.add { type = 'label', caption = {'gui.current_force', Functions.get_team_name(player.force)} }
 
   Gui.set_style(sp, { padding = 12 })
   local grid = sp.add { type = 'table', column_count = 3 }
@@ -144,6 +164,22 @@ end
 
 Gui.on_click(main_button_name, function(event)
   Public.toggle_main_button(event.player)
+end)
+
+Gui.on_click(leave_force_button_name, function(event)
+  if debounce(event.player) then
+    return
+  end
+  Functions.switch_force(event.player, game.forces.player)
+end)
+
+Gui.on_click(join_force_button_name, function(event)
+  if debounce(event.player) then
+    return
+  end
+  local data = Gui.get_data(event.element)
+  Public.toggle_main_button(event.player)
+  Functions.switch_force(event.player, game.forces[data.force_index])
 end)
 
 Event.add(defines.events.on_player_joined_game, function(event)

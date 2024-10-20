@@ -1,9 +1,11 @@
 local planets = require 'shared.planets'
+local seed_offset = 1000
 
 for base_name, list in pairs(planets) do
   for index, new_name in pairs(list) do
     local planet = table.deepcopy(data.raw.planet[base_name])
     planet.name = new_name
+    planet.map_seed_offset = math.random(2^12)
     planet.order = string.format('%s[%s]', planet.order[1], new_name)
     planet.localised_description = {'space-location-description.'..base_name}
 
@@ -16,6 +18,7 @@ for base_name, list in pairs(planets) do
 
     data:extend{ planet }
   end
+  seed_offset = seed_offset + 1000
 end
 
 data.raw.planet.vulcanus.orientation = 0
