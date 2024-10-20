@@ -1,0 +1,65 @@
+local DEFAULT_INTERVAL = 60
+
+local Buckets = {}
+
+Buckets.new = function(interval)
+  local bucket = { list = {}, interval = interval or DEFAULT_INTERVAL }
+  return bucket
+end
+
+Buckets.add = function(bucket, id, data)
+  local bucket_id = id % bucket.interval
+  bucket.list[bucket_id] = bucket.list[bucket_id] or {}
+  bucket.list[bucket_id][id] = data or {}
+end
+
+Buckets.get = function(bucket, id)
+  if not id then return end
+  local bucket_id = id % bucket.interval
+  local bucket_data = bucket.list[bucket_id]
+  return bucket_data and bucket_data[id]
+end
+
+Buckets.remove = function(bucket, id)
+  if not id then return end
+  local bucket_id = id % bucket.interval
+  if bucket.list[bucket_id] then
+    bucket.list[bucket_id][id] = nil
+  end
+end
+
+Buckets.get_bucket = function(bucket, id)
+  local bucket_id = id % bucket.interval
+  bucket.list[bucket_id] = bucket.list[bucket_id] or {}
+  return bucket.list[bucket_id]
+end
+
+Buckets.reallocate = function(bucket, new_interval)
+  local tmp = {}
+  if bucket.interval == new_interval then
+    return
+  end
+
+  for b_id=0, bucket.interval do
+    local bucket_data = bucket.list[b_id]
+    for id, data in pairs(bucket_data or {}) do
+      tmp[id] = data
+    end
+    bucket.list[b_id] = nil
+  end
+
+  bucket.interval = new_interval or DEFAULT_INTERVAL
+  for id, data in pairs(tmp) do
+    Buckets.add(bucket, id, data)
+  end
+end
+
+Buckets.migrate = function(tbl, interval)
+  local bucket = Buckets.new(interval)
+  for id, data in pairs(tbl) do
+    Buckets.add(bucket, id, data)
+  end
+  return bucket
+end
+
+return Buckets

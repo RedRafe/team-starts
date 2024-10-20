@@ -1,0 +1,21 @@
+Title: Cosmic Colonies: A New Era of Team-Based Multiplayer Gaming
+
+Imagine a multiplayer experience where your team can thrive without the chaos of early-game resource conflicts. Introducing Cosmic Colonies, a revolutionary mod designed to transform the way you compete and collaborate in your favorite game!
+
+The Concept:
+As players join the server, they’ll be randomly sorted onto one of the 9 unique copies of the Nauvis planet, each teeming with resources but completely separated from one another. This separation ensures that teams can focus on building their bases, strategizing, and developing their technologies without the stress of immediate competition. Meanwhile, teams can also colonize additional planets—Vcanus, Fulgora, and Gleba—allowing for diverse growth opportunities and unique team dynamics.
+
+The Experience:
+After a dedicated period of independent development, all teams will reunite on the Aquilo planet for a grand finale event. This climactic gathering fosters a sense of community and camaraderie as players showcase their innovations and strategies, culminating in a thrilling confrontation that emphasizes teamwork, collaboration, and creative problem-solving.
+
+Key Features:
+
+    Separated Starts: Each team begins on a different Nauvis instance, ensuring minimal early-game disputes.
+    Diverse Planets: Expand beyond Nauvis with opportunities to colonize three other unique planets, diversifying gameplay.
+    Balanced Resources: Equitable resource distribution across all planets empowers teams to thrive individually and collectively.
+    Community Focus: The final convergence on Aquilo encourages interaction and collaboration, strengthening community bonds.
+
+Why Cosmic Colonies?
+This mod reimagines multiplayer gameplay, merging competitive spirit with cooperative strategy. By redefining the traditional resource-gathering start, Cosmic Colonies offers a fresh perspective that emphasizes teamwork while still promoting healthy competition. 
+
+Join us in creating an extraordinary gaming experience that celebrates both individuality and community. Get ready for an adventure like no other—your galaxy awaits!

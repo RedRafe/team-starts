@@ -1,0 +1,11 @@
+{
+  "name": "team-starts",
+  "version": "2.0.6",
+  "title": "Team Starts for Multiplayer",
+  "author": "RedRafe",
+  "source": "https://github.com/RedRafe/team-starts",
+  "homepage": "https://mods.factorio.com/mod/team-starts",
+  "dependencies": [ "space-age" ],
+  "factorio_version": "2.0",
+  "description": "Embark on an epic cooperative journey in the Space Age DLC! This mod organizes players into smaller teams on separate planets, ensuring a balanced early game experience while battling enemies together. Enjoy maximum freedom as your team collaborates, shares resources, and explores the cosmos—without the chaos of competing for resources!"
+}
