@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.0.7
+Date: 2024-10-21
+  Info:
+    - Added commands /chain and /unchain player to restrict them from changing teams
+    - Added command /rename to rename a team
+---------------------------------------------------------------------------------------------------
 Version: 2.0.6
 Date: 2024-10-20
   Info:

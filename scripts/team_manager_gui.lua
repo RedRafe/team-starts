@@ -44,6 +44,10 @@ function Public.toggle_main_button(player)
   if main_frame then
     Gui.destroy(main_frame)
   else
+    if storage.restrict_player_from_changing_team[player.index] then
+      player.print({'info.chained'})
+      return
+    end
     Public.get_main_frame(player)
   end
 end
@@ -65,7 +69,7 @@ local function display_team(parent, force)
   -- title
   local subheader = inside.add { type = 'frame', style = 'subheader_frame' }
   Gui.set_style(subheader, { horizontally_stretchable = true })
-  subheader.add { type = 'label', caption = 'Team '.. force.index-3, style = 'subheader_caption_label' }
+  subheader.add { type = 'label', caption = 'Team '.. force.index-3, style = 'subheader_caption_label', tooltip = {'gui.rename_tooltip'} }
   
   -- contents
   local content = inside.add { type = 'flow', direction = 'vertical' }
@@ -74,7 +78,7 @@ local function display_team(parent, force)
   do -- description
     local d_frame = content.add { type = 'frame', style = 'deep_frame_in_shallow_frame_for_description', direction = 'vertical' }
     Gui.set_style(d_frame, { width = 180, natural_width = 180 })
-    d_frame.add { type = 'label', caption = Functions.get_team_name(force), style = 'info_label' }
+    d_frame.add { type = 'label', caption = Functions.get_team_name(force), style = 'info_label', tooltip = storage.team_names[force.name] }
     d_frame.add { type = 'line', style = 'tooltip_horizontal_line' }
     local fr = d_frame.add { type = 'flow', direction = 'vertical' }
       fr.add { type = 'label', caption = 'Home planet: ', style = 'semibold_caption_label' }
@@ -189,3 +193,5 @@ Event.add(defines.events.on_player_joined_game, function(event)
   end
   Public.update_top_button(player)
 end)
+
+return Public
