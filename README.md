@@ -1,9 +1,8 @@
-# Space Age DLC - Team-Based Cooperative Journey
+# Team Starts for Multiplayer
 
 ## Overview
 
-Welcome to the Space Age DLC, a revolutionary mod designed to transform your multiplayer gaming experience! This mod focuses on fostering teamwork and cooperation through an innovative team-based format, allowing players to embark on an epic journey across the cosmos. Enjoy the thrill of exploration and resource management in a balanced early game environment where collaboration is key, and chaos is left behind.
-
+Embark on an epic cooperative journey in **Team Starts**! This mod organizes players into smaller teams on separate planets, ensuring a balanced early game experience while battling enemies together. Enjoy maximum freedom as your team collaborates, shares resources, and explores the cosmos—without the chaos of competing for resources!
 ---
 
 ## Universe preview
@@ -53,11 +52,11 @@ Choose among 3 options:
 
 ## Getting Started
 
-1. **Installation**: To install the Space Age DLC, follow the instructions provided in the installation section of the mod portal. Ensure you have the base game updated to the latest version for the best experience.
+1. **Installation**: Follow the instructions provided in the installation section of the mod portal. Ensure you have the base game updated to the latest version for the best experience.
 
-2. **Setting Up a Game**: Once installed, select the universe size of your choice (Small - Medium - Large), create or join a multiplayer game and select the Space Age DLC option. Allocate players into teams and start your journey!
+2. **Setting Up a Game**: Once installed, select the universe size of your choice (Small - Medium - Large), create or join a multiplayer game. Allocate players into teams and start your journey!
 
-3. **Form Teams**: When starting a game, make sure to divide players into small teams for optimal participation. Use the mod's team organization features to facilitate communication and collaboration.
+3. **Form Teams**: When starting a game, make sure to divide players into small teams for optimal participation. Use the mod's *Team Manager* window to facilitate communication and collaboration.
 
 4. **Join the Community**: Engage with other players through the mod’s community channels. Share strategies, tips, and experiences to enhance everyone’s gaming adventure within the Space Age.
 
