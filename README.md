@@ -66,6 +66,10 @@ Choose among 3 options:
 Here's a preview of the **Team Manager** window in-game, where you can join another team:
 ![ui](https://github.com/RedRafe/team-starts/blob/main/archive/img_gui.png?raw=true)
 
+## Admin Commands
+
+Consult the [docs](https://github.com/RedRafe/team-starts/wiki#commands-wiki) for a quick breakdown of all the available tools for admins.
+
 ---
 
 ## Join the Adventure
