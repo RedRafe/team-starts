@@ -105,6 +105,38 @@ commands.add_command(
   end
 )
 
+-- /set-team-status 6 true
+commands.add_command(
+  'set-team-status',
+  '/set-team-status <id> <status>, sets a team status to open/close (true/false) [ADMIN only]',
+  function(event)
+    local player = game.get_player(event.player_index)
+    if not (player and player.valid) or not player.admin then
+      return
+    end
+    if not event.parameter then
+      player.print('/set-team-status  <id> <status>, wrong arguments <id> :: number or <status> :: boolean')
+      return
+    end
+    local text = event.parameter
+    local id = string.match(text, '^%d+') -- first number
+    local status = string.match(text, ' (.*)') -- everything after space
+    if not id or status == nil then
+      return
+    end
+    id, status = tonumber(id), (string.lower(status) == 'true') and true or false
+    if not id or not type(id) == 'number' or status == nil or not type(status) == 'boolean' then
+      return
+    end
+    local force = game.forces['player_'..id]
+    if not force or not force.valid or force.name == 'player' then
+      return
+    end
+    storage.is_team_locked[force.name] = not status
+    game.print({'info.team_status', player_with_color(player), Functions.get_team_name(force), status and 'open' or 'closed'})
+  end
+)
+
 -- /switch_team 6 The best team ever
 commands.add_command(
   'switch-team',

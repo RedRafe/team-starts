@@ -60,6 +60,7 @@ local function display_team(parent, force)
     return
   end
 
+  local player = game.get_player(parent.player_index)
   local planets = Functions.get_force_planets(force)
 
   local frame = parent.add { type = 'frame' }
@@ -128,6 +129,10 @@ local function display_team(parent, force)
   Gui.set_data(join, { force_index = force.index })
   join.visible = p_force ~= force
   join.tooltip = {'info.cooldown_tooltip', storage.DEBOUNCE_TICKS / 3600}
+  join.enabled = player.admin or (not storage.is_team_locked[force.name])
+  if not join.enabled then
+    join.caption = 'Closed'
+  end
 end
 
 function Public.get_main_frame(player)
