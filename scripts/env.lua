@@ -18,6 +18,8 @@ local Event = require 'utils.event'
 Event.on_init(function()
   storage.map_planet_to_force = {}
   storage.map_force_to_planet = {}
+  storage.map_expansion_to_force = {}
+  storage.map_force_to_expansion = {}
   storage.team_names = {}
   storage.first_landing = {}
   storage.cooldown = {}

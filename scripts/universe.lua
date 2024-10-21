@@ -34,7 +34,10 @@ Event.on_init(function()
     force.lock_space_location('nauvis')
     force.set_surface_hidden('nauvis', true)
 
-    storage.first_landing[force_name] = Functions.get_force_planets(force).expansion
+    local expansion = Functions.get_force_planets(force).expansion
+    storage.first_landing[force_name] = expansion
+    storage.map_expansion_to_force[expansion] = force_name
+    storage.map_force_to_expansion[force_name] = expansion
   end
 end)
 
@@ -66,6 +69,7 @@ Event.add(defines.events.on_research_finished, function(event)
   if expansion then
     if Table.contains(Planets[target_base] or {}, expansion) then
       force.unlock_space_location(expansion)
+      force.lock_space_location(target_base)
       force.print({'info.planet_unlocked', expansion})
     end
   end

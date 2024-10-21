@@ -1,7 +1,10 @@
+local Table = require 'utils.table'
 local shared = {
   planets = require 'shared.planets',
   connections = require 'shared.connections',
 }
+
+local contains = Table.contains
 
 local Functions = {}
 
@@ -85,6 +88,38 @@ Functions.surface_force_restrictions = function(surface, force)
     return allowed_force_name == force.name
   end
   return true
+end
+
+---@param surface LuaSurface
+Functions.remove_adjacent_restrictions = function(surface, force)
+  local removed_forces = {}
+  local planet = surface.planet and surface.planet.name
+  local connections = prototypes.space_connection
+  local list = shared.planets
+  for _, connection in pairs(connections) do
+    local other_planet = false
+    if connection.from.name == planet then
+      other_planet = connection.to.name
+    elseif connection.to.name == planet then
+      other_planet = connection.from.name
+    end
+    if other_planet and storage.map_expansion_to_force[other_planet] then
+      local other_force = storage.map_expansion_to_force[other_planet]
+      storage.map_expansion_to_force[other_planet] = nil
+      storage.map_planet_to_force[other_planet] = nil
+      storage.map_force_to_planet[other_force] = nil
+      removed_forces[#removed_forces + 1] = { other_planet, other_force }
+    end
+  end
+  for _, v in pairs(removed_forces) do
+    game.print({
+      'info.force_gained_access',
+      Functions.get_team_name(force),
+      v[1],
+      Functions.get_team_name(game.forces[v[2]]),
+    })
+    force.unlock_space_location(v[1])
+  end
 end
 
 ---@param entity LuaEntity (player.character)
@@ -229,10 +264,17 @@ Functions.remove_force = function(force)
       storage.map_planet_to_force[k] = nil
     end
   end
+  for k, v in pairs(storage.map_expansion_to_force) do
+    if v == name then
+      storage.map_planet_to_force[k] = nil
+    end
+  end
   storage.team_names[name] = nil
   storage.first_landing[name] = nil
+  storage.map_force_to_expansion[name] = nil
 end
 
+---@param player LuaPlayer
 Functions.leave_corpse = function(player)
   if not player.character then
     return
