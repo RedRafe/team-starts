@@ -4,6 +4,27 @@
 
 Welcome to the Space Age DLC, a revolutionary mod designed to transform your multiplayer gaming experience! This mod focuses on fostering teamwork and cooperation through an innovative team-based format, allowing players to embark on an epic journey across the cosmos. Enjoy the thrill of exploration and resource management in a balanced early game environment where collaboration is key, and chaos is left behind.
 
+---
+
+## Universe preview
+Custom universe size! Universe will be build around *Calidus* to form a complex universe. You can add up to 3 systems to yor universe, each system is composed of 9 Nauvis, 3 Vulcanus, 3 Gleba, 3 Fulgora, 1 Aquilo.
+Choose among 3 options:
+
+- **Small** - 19 planets (1 system)
+- **Medium** - 38 planets (2 systems)
+- **Large** - 57 planets (3 systems)
+
+> Small
+![small_universe](https://github.com/RedRafe/team-starts/blob/main/archive/img_universe_19.png?raw=true)
+
+> Medium
+![medium_universe](https://github.com/RedRafe/team-starts/blob/main/archive/img_universe_38.png?raw=true)
+
+> Large
+![large_universe](https://github.com/RedRafe/team-starts/blob/main/archive/img_universe_57.png?raw=true)
+
+---
+
 ## Features
 
 ### Team Organization
@@ -34,11 +55,18 @@ Welcome to the Space Age DLC, a revolutionary mod designed to transform your mul
 
 1. **Installation**: To install the Space Age DLC, follow the instructions provided in the installation section of the mod portal. Ensure you have the base game updated to the latest version for the best experience.
 
-2. **Setting Up a Game**: Once installed, create or join a multiplayer game and select the Space Age DLC option. Allocate players into teams and start your journey!
+2. **Setting Up a Game**: Once installed, select the universe size of your choice (Small - Medium - Large), create or join a multiplayer game and select the Space Age DLC option. Allocate players into teams and start your journey!
 
 3. **Form Teams**: When starting a game, make sure to divide players into small teams for optimal participation. Use the mod's team organization features to facilitate communication and collaboration.
 
 4. **Join the Community**: Engage with other players through the mod’s community channels. Share strategies, tips, and experiences to enhance everyone’s gaming adventure within the Space Age.
+
+## User interface
+
+Here's a preview of the **Team Manager** window in-game, where you can join another team:
+![ui](https://github.com/RedRafe/team-starts/blob/main/archive/img_gui.png?raw=true)
+
+---
 
 ## Join the Adventure
 
