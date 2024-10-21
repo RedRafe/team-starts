@@ -2,6 +2,7 @@ local TMGui = require 'scripts.team_manager_gui'
 local Functions = require 'scripts.functions'
 local player_with_color = Functions.player_with_color
 
+-- /chain Joe
 commands.add_command(
   'chain',
   '/chain <player_name>, restricts player from freely change teams [ADMIN only]',
@@ -24,6 +25,7 @@ commands.add_command(
   end
 )
 
+-- /unchain Joe
 commands.add_command(
   'unchain',
   '/unchain <player_name>, allows player to freely change teams [ADMIN only]',
@@ -46,6 +48,29 @@ commands.add_command(
   end
 )
 
+-- /remove Joe
+commands.add_command(
+  'remove',
+  '/remove <player_name>, allows player to freely change teams [ADMIN only]',
+  function(event)
+    local player = game.get_player(event.player_index)
+    if not (player and player.valid) or not player.admin then
+      return
+    end
+    if not event.parameter then
+      player.print('/remove <player_name> missing 1st argument: <player_name> :: string')
+      return
+    end
+    local target = game.get_player(event.parameter)
+    if target and target.valid then
+      Functions.switch_force(player, game.forces.player)
+      game.print({'info.info_chain', player_with_color(player), player_with_color(target)})
+      storage.restrict_player_from_changing_team[target.index] = true
+      TMGui.toggle_main_button(target)
+      TMGui.toggle_main_button(target)
+    end
+  end
+)
 
 -- /rename 6 The best team ever
 commands.add_command(

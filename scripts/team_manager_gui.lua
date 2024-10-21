@@ -21,6 +21,9 @@ local function get_player_counts(force)
 end
 
 local function debounce(player)
+  if player.admin then
+    return false
+  end
   local tick = storage.cooldown[player.index]
   if tick and tick > game.tick then
     player.print({'info.cooldown', math.ceil((tick - game.tick) / 3600)})
