@@ -51,7 +51,7 @@ commands.add_command(
 -- /remove Joe
 commands.add_command(
   'remove',
-  '/remove <player_name>, allows player to freely change teams [ADMIN only]',
+  '/remove <player_name>, remove a player from their current team and restricts the to "Player" force[ADMIN only]',
   function(event)
     local player = game.get_player(event.player_index)
     if not (player and player.valid) or not player.admin then
@@ -102,5 +102,39 @@ commands.add_command(
     local old = storage.team_names[force.name]
     storage.team_names[force.name] = name
     game.print({'info.rename_team', old, name})
+  end
+)
+
+-- /switch_team 6 The best team ever
+commands.add_command(
+  'switch-team',
+  '/switch-team <id> <player_name>, assign player to team number X (use 0 for global Player force) [ADMIN only]',
+  function(event)
+    local player = game.get_player(event.player_index)
+    if not (player and player.valid) or not player.admin then
+      return
+    end
+    if not event.parameter then
+      player.print('/switch-team  <id> <player_name>, wrong arguments <id> :: number or <player_name> :: string')
+      return
+    end
+    local text = event.parameter
+    local id = string.match(text, '^%d+') -- first number
+    local name = string.match(text, ' (.*)') -- everything after space
+    if not id or not name then
+      return
+    end
+    id, name = tonumber(id), tostring(name)
+    if not id or not type(id) == 'number' or not name or not type(name) == 'string' or name == '' then
+      return
+    end
+    local force = game.forces['player_'..id]
+    if id == 0 then
+      force = game.forces.player
+    end
+    if not force or not force.valid then
+      return
+    end
+    Functions.switch_force(player, force)
   end
 )
