@@ -3,6 +3,7 @@
 ## Overview
 
 Embark on an epic cooperative journey in **Team Starts**! This mod organizes players into smaller teams on separate planets, ensuring a balanced early game experience while battling enemies together. Enjoy maximum freedom as your team collaborates, shares resources, and explores the cosmos—without the chaos of competing for resources!
+
 ---
 
 ## Universe preview
