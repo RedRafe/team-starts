@@ -1,6 +1,11 @@
 ---------------------------------------------------------------------------------------------------
 Version: 2.0.8
 Date: 2024-10-21
+  Fixes:
+    - Fix display invalid planet
+---------------------------------------------------------------------------------------------------
+Version: 2.0.8
+Date: 2024-10-21
   Info:
     - Added bypass for admins to change teams
     - Added command /switch-team to assign a player to that team

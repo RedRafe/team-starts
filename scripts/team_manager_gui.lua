@@ -84,12 +84,16 @@ local function display_team(parent, force)
     Gui.set_style(d_frame, { width = 180, natural_width = 180 })
     d_frame.add { type = 'label', caption = Functions.get_team_name(force), style = 'info_label', tooltip = storage.team_names[force.name] }
     d_frame.add { type = 'line', style = 'tooltip_horizontal_line' }
-    local fr = d_frame.add { type = 'flow', direction = 'vertical' }
-      fr.add { type = 'label', caption = 'Home planet: ', style = 'semibold_caption_label' }
-      fr.add { type = 'label', caption = {'', f('[planet=%s]\t\t', planets.home), {'space-location-name.'..planets.home} }}
-    local fr = d_frame.add { type = 'flow', direction = 'vertical' }
-      fr.add { type = 'label', caption = 'Reserved expansion: ', style = 'semibold_caption_label' }
-      fr.add { type = 'label', caption = {'', f('[planet=%s]\t\t', planets.expansion), {'space-location-name.'..planets.expansion} }}
+    if planets.home then
+      local fr = d_frame.add { type = 'flow', direction = 'vertical' }
+        fr.add { type = 'label', caption = 'Home planet: ', style = 'semibold_caption_label' }
+        fr.add { type = 'label', caption = {'', f('[planet=%s]\t\t', planets.home), {'space-location-name.'..planets.home} }}
+    end
+    if planets.expansion then
+      local fr = d_frame.add { type = 'flow', direction = 'vertical' }
+        fr.add { type = 'label', caption = 'Reserved expansion: ', style = 'semibold_caption_label' }
+        fr.add { type = 'label', caption = {'', f('[planet=%s]\t\t', planets.expansion), {'space-location-name.'..planets.expansion} }}
+    end
   end
 
   -- members
