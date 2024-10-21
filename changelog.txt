@@ -5,6 +5,7 @@ Date: 2024-10-21
     - Added bypass for admins to change teams
     - Added command /switch-team to assign a player to that team
     - Added command /remove to remove a player from a team
+    - Added command /set-team-status to open/close teams
 ---------------------------------------------------------------------------------------------------
 Version: 2.0.7
 Date: 2024-10-21
