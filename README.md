@@ -15,13 +15,13 @@ Choose among 3 options:
 - **Large** - 57 planets (3 systems)
 
 > Small
-![small_universe](https://github.com/RedRafe/team-starts/blob/main/archive/img_universe_19.png?raw=true)
+![small_universe](https://github.com/RedRafe/team-starts/blob/main/archive/universe_19.png?raw=true)
 
 > Medium
-![medium_universe](https://github.com/RedRafe/team-starts/blob/main/archive/img_universe_38.png?raw=true)
+![medium_universe](https://github.com/RedRafe/team-starts/blob/main/archive/universe_38.png?raw=true)
 
 > Large
-![large_universe](https://github.com/RedRafe/team-starts/blob/main/archive/img_universe_57.png?raw=true)
+![large_universe](https://github.com/RedRafe/team-starts/blob/main/archive/universe_57.png?raw=true)
 
 ---
 
