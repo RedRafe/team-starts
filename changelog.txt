@@ -1,5 +1,10 @@
 ---------------------------------------------------------------------------------------------------
-Version: 2.0.8
+Version: 2.0.10
+Date: 2024-10-23
+  Fixes:
+    - Fix home planet not being elegible for space platforms creation
+---------------------------------------------------------------------------------------------------
+Version: 2.0.9
 Date: 2024-10-21
   Fixes:
     - Fix display invalid planet
