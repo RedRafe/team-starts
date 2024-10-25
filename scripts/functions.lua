@@ -107,7 +107,6 @@ Functions.remove_adjacent_restrictions = function(surface, force)
       local other_force = storage.map_expansion_to_force[other_planet]
       storage.map_expansion_to_force[other_planet] = nil
       storage.map_planet_to_force[other_planet] = nil
-      storage.map_force_to_planet[other_force] = nil
       removed_forces[#removed_forces + 1] = { other_planet, other_force }
     end
   end

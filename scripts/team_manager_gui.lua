@@ -55,6 +55,41 @@ function Public.toggle_main_button(player)
   end
 end
 
+local function display_global_team(parent)
+  local force = game.forces.player
+  local p_counts = get_player_counts(force)
+
+  local frame = parent.add { type = 'frame' }
+  local flow_1 = frame.add { type = 'flow', direction = 'vertical' }
+  Gui.set_style(flow_1, { padding = 0, horizontally_stretchable = true })
+  
+  local inside = flow_1.add { type = 'frame', style = 'inside_shallow_frame_with_padding', direction = 'horizontal' }
+  Gui.set_style(inside, { padding = 0 })
+
+  -- description
+  local d_frame = inside.add { type = 'frame', style = 'deep_frame_in_shallow_frame_for_description', direction = 'vertical' }
+  Gui.set_style(d_frame, { width = 250, natural_width = 250 })
+  d_frame.add { type = 'label', caption = 'Global team "Player"', style = 'info_label' }
+  d_frame.add { type = 'line', style = 'tooltip_horizontal_line' }
+  local fr = d_frame.add { type = 'flow', direction = 'vertical' }
+    fr.add { type = 'label', caption = 'Home planet: ', style = 'semibold_caption_label' }
+    fr.add { type = 'label', caption = '[planet=nauvis]\t\tNauvis' }
+  local fr = d_frame.add { type = 'flow', direction = 'vertical' }
+    fr.add { type = 'label', caption = 'Reserved expansions: ', style = 'semibold_caption_label' }
+    fr.add { type = 'label', caption = '[planet=gleba]\t\tGleba\t\t[planet=fulgora]\t\tFulgora\t\t[planet=vulcanus]\t\tVulcanus'}
+  d_frame.add { type = 'label', caption = f('\tOnline: %d/%d', p_counts.online, p_counts.total) .. ' | ' .. f('\tOffline: %d/%d', p_counts.offline, p_counts.total)}
+
+  local p_frame = inside.add { type = 'frame', style = 'deep_frame_in_shallow_frame_for_description', direction = 'vertical' }
+  local p_flow = p_frame.add { type = 'flow', direction = 'vertical' }
+  
+  Gui.set_style(p_flow, { vertically_stretchable = true, horizontally_stretchable = true, --[[maximal_width = 440]] })
+  Gui.set_style(p_frame, { width = 390, natural_width = 390 })
+
+  p_flow.add { type = 'label', style = 'semibold_caption_label', caption = 'Members:' }
+  local label = p_flow.add({ type = 'label', name = 'members', caption = table.concat(Functions.get_player_list(force), '   ') })
+  Gui.set_style(label, { single_line = false, font = 'default-small', horizontal_align = 'center' })
+end
+
 local function display_team(parent, force)
   if not force or not force.valid then
     return
@@ -160,9 +195,10 @@ function Public.get_main_frame(player)
 
   local flow = subheader.add { type = 'flow', direction = 'horizontal' }
   Gui.set_style(flow, { vertical_align = 'center', left_padding = 8, right_padding = 8 })
-  local subtitle = flow.add { type = 'label', caption = 'Calidus solar system', style = 'subheader_caption_label' }
+  local subtitle = flow.add { type = 'label', caption = '[img=utility/starmap_star]\t\tCalidus solar system', style = 'subheader_caption_label' }
 
   local sp = inner.add { type = 'scroll-pane', style = 'naked_scroll_pane' }
+  Gui.set_style(sp, { padding = 12, maximal_width = 704 })
 
   local info = sp.add { type = 'frame', direction = 'vertical' }.add { type = 'flow', style = 'player_input_horizontal_flow' }
   Gui.set_style(info, { horizontally_stretchable = true })
@@ -170,9 +206,10 @@ function Public.get_main_frame(player)
   Gui.add_pusher(info)
   info.add { type = 'label', caption = {'gui.current_force', Functions.get_team_name(player.force)} }
 
-  Gui.set_style(sp, { padding = 12 })
-  local grid = sp.add { type = 'table', column_count = 3 }
+  -- global force
+  display_global_team(sp)
 
+  local grid = sp.add { type = 'table', column_count = 3 }
   for i = 1, Functions.universe_size() do
     display_team(grid, game.forces['player_'..i])
   end
@@ -186,6 +223,7 @@ Gui.on_click(leave_force_button_name, function(event)
   if debounce(event.player) then
     return
   end
+  Public.toggle_main_button(event.player)
   Functions.switch_force(event.player, game.forces.player)
 end)
 
