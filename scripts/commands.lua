@@ -82,7 +82,7 @@ commands.add_command(
       return
     end
     if not event.parameter then
-      player.print('/rename  <id> <name>, wrong arguments <id> :: number or <name> :: string')
+      player.print('/rename  <id> <name>, wrong arguments <id> :: number | <name> :: string')
       return
     end
     local text = event.parameter
@@ -115,7 +115,7 @@ commands.add_command(
       return
     end
     if not event.parameter then
-      player.print('/set-team-status  <id> <status>, wrong arguments <id> :: number or <status> :: boolean')
+      player.print('/set-team-status  <id> <status>, wrong arguments <id> :: number | <status> :: boolean')
       return
     end
     local text = event.parameter
@@ -147,7 +147,7 @@ commands.add_command(
       return
     end
     if not event.parameter then
-      player.print('/switch-team  <id> <player_name>, wrong arguments <id> :: number or <player_name> :: string')
+      player.print('/switch-team  <id> <player_name>, wrong arguments <id> :: number | <player_name> :: string')
       return
     end
     local text = event.parameter
@@ -168,5 +168,36 @@ commands.add_command(
       return
     end
     Functions.switch_force(player, force)
+  end
+)
+
+commands.add_command(
+  'teleport-to',
+  '/teleport-to <planet_name> <player_name>, teleports a player to target planet',
+  function(event)
+    local player = game.get_player(event.player_index)
+    if not (player and player.valid) or not player.admin then
+      return
+    end
+    local err = '/teleport-to  <planet_name> <player_name?>, wrong arguments <planet_name> :: number | <player_name?> :: string (optional) or calling player'
+    if not event.parameter then
+      player.print(err)
+      return
+    end
+    local params = {}
+    for word in string.gmatch(event.parameter, '%S+') do
+      table.insert(params, word)
+    end
+    if #params == 0 or #params > 2 then
+      player.print(err)
+      return
+    end
+    local surface = game.get_surface(params[1])
+    local target = params[2] and game.get_player(params[2]) or player
+    if not surface or not target then
+      player.print(err)
+      return
+    end
+    Functions.teleport(target.character, nil, surface, true)
   end
 )

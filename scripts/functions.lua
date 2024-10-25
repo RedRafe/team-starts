@@ -46,6 +46,10 @@ Functions.get_player_list = function(force)
   return list
 end
 
+Functions.starts_with = function(str, start) 
+  return str:sub(1, #start) == start 
+end
+
 -- ============================================================================
 
 Functions.universe_size = function()
@@ -127,6 +131,9 @@ end
 ---@param raise_teleport? boolean
 ---@param snap_to_grid? boolean
 Functions.teleport = function(entity, position, surface, raise_teleport, snap_to_grid)
+  if not (entity and entity.valid) then
+    return
+  end
   position = position or _spawn()
   local pos = surface.find_non_colliding_position(entity.name, position, 32, 1, snap_to_grid)
   if pos then

@@ -80,3 +80,43 @@ Event.add(defines.events.on_research_finished, function(event)
     end
   end
 end)
+
+local SIZE_TO_INDEX = { small = 3, medium = 6, large = 9 }
+local function reset_space_locations(event)
+  local f = event.force
+  if not Functions.starts_with(f.name, 'player_') then
+    return
+  end
+  local i = string.gsub(f.name, 'player_', '')
+  i = tonumber(i)
+  if not i then
+    return
+  end
+
+  local nauvis = Planets.nauvis
+  local size = settings.startup['ts_solar_system_size'].value
+
+  if f and f.valid then
+    f.unlock_space_location(nauvis[i])
+    f.lock_space_location('nauvis')
+    f.set_surface_hidden('nauvis', true)
+  end
+
+  for _, base in pairs({'gleba', 'fulgora', 'vulcanus'}) do
+    local custom = Planets[base]
+    if f.technologies['planet-discovery-'..base].researched then
+      f.lock_space_location(base)
+      f.unlock_space_location(custom[math.ceil(i/3)])
+    end
+    if game.planets[base] and game.planets[base].surface then
+      f.set_surface_hidden(game.planets[base].surface, true)
+    end
+  end
+end
+Event.add(defines.events.on_force_reset, reset_space_locations)
+Event.add(defines.events.on_technology_effects_reset, reset_space_locations)
+Event.on_configuration_changed(function()
+  for _, f in pairs(game.forces) do
+    reset_space_locations({ force = f })
+  end
+end)
