@@ -26,4 +26,5 @@ Event.on_init(function()
   storage.DEBOUNCE_TICKS = 60 * 60 * 15
   storage.restrict_player_from_changing_team = {}
   storage.is_team_locked = {}
+  storage.platform_inventories = {}
 end)

@@ -44,9 +44,14 @@ Event.add(defines.events.on_forces_merging, function(event)
   local src, dst = event.source, event.destination
   local _name = Functions.get_team_name
   game.print({'info.merging_forces', _name(src), _name(dst)})
+  Functions.save_platforms_inventory(src)
   Functions.merge_locations(src, dst)
   Functions.remove_force(src)
   Functions.merge_technologies(src, dst)
+end)
+
+Event.add(defines.events.on_forces_merged, function(event)
+  Functions.apply_platforms_inventory(event.destination)
 end)
 
 local TECH_TO_PLANET = {

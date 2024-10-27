@@ -1,0 +1,1 @@
+storage.platform_inventories = storage.platform_inventories or {}

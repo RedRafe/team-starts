@@ -318,6 +318,39 @@ Functions.leave_corpse = function(player)
   --player.create_character()
 end
 
+---@param force LuaForce
+Functions.save_platforms_inventory = function(force)
+  if not (force and force.valid) then
+    return
+  end
+  for _, platform in pairs(force.platforms) do
+    if platform.hub then
+      local inv = platform.hub.get_inventory(defines.inventory.hub_main)
+      if inv and inv.valid then
+        storage.platform_inventories[platform.index] = inv.get_contents()
+      end
+    end
+  end
+end
+
+---@param force LuaForce
+Functions.apply_platforms_inventory = function(force)
+  if not (force and force.valid) then
+    return
+  end
+  for _, platform in pairs(force.platforms) do
+    local contents = storage.platform_inventories[platform.index]
+    if contents then
+      local inv = platform.hub.get_inventory(defines.inventory.hub_main)
+      inv.clear()
+      for _, stack in pairs(contents) do
+        inv.insert(stack)
+      end
+      storage.platform_inventories[platform.index] = nil
+    end
+  end
+end
+
 -- ============================================================================
 
 return Functions
